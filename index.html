@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <title>Vue Fundamentals</title>
+    </head>
+    <body>
+        <div id="app">
+            <h1>{{message}}</h1>
+            <p>Your lucky number is {{ luckyNumber }} and it is an {{luckyNumber % 2 == 0 ? "even" : "old"}} number</p>
+            <p>Here are  few numbers {{numbers[6]}}</p>
+            <h3>This is {{employee.name}}. He is {{employee.age}} and earns {{employee.salary}}</h3>
+            <h4>Random number 1 - 10: {{ randomNum }} </h4>
+        </div>
+        
+        <script>
+            const { createApp } = Vue;
+
+            createApp({
+                setup(){
+                    const message = "Hello vue 3!";
+                    const luckyNumber = 9;  
+                    const numbers = [3,4,5,6,7,8,9,0];
+                    const randomNum = Math.floor(Math.random() * 10) + 1;
+                    
+                    const employee = {
+                        name : "Agbowagli",
+                        age : 40,
+                        salary: 100000000,
+                    }
+
+                    return{
+                        message,
+                        luckyNumber,
+                        numbers,
+                        employee,
+                        randomNum
+                    }
+                }
+            }).mount("#app");
+
+        </script>
+
+    </body>
+</html>
