@@ -12,7 +12,7 @@
             <p>Your lucky number is {{ luckyNumber }} and it is an {{luckyNumber % 2 == 0 ? "even" : "old"}} number</p>
             <p>Here are  few numbers {{numbers[6]}}</p>
             <h3>This is {{employee.name}}. He is {{employee.age}} and earns {{employee.salary}}</h3>
-            <h4>Random number 1 - 10: {{ GetRandomLuckyNumber() }} </h4>
+            <h4>{{ GetUpdateLuckyNumber() }} </h4>
         </div>
         
         <script>
@@ -22,16 +22,19 @@
                 setup(){
                     let luckyNumber = ref(9);  
                     const numbers = [3,4,5,6,7,8,9,0];
-                    const employee = {
+                    const employee = ref({
                         name : "Agbowagli",
                         age : 40,
                         salary: 100000000,
-                    }
+                    })
                     
-                    function GetRandomLuckyNumber(){
+                    function GetUpdateLuckyNumber(){
 
-                        luckyNumber.value = Math.floor(Math.random() * 10) + 1;
-                        return luckyNumber;
+                        setTimeout(() => {
+                            
+                            luckyNumber.value = 44;
+                            employee.value.salary = 50
+                        }, 5000);
                     };
 
                     function GetMessage() {
@@ -43,7 +46,7 @@
                         luckyNumber,
                         numbers,
                         employee,
-                        GetRandomLuckyNumber,
+                        GetUpdateLuckyNumber,
                         GetMessage
                     }
                 }
