@@ -16,13 +16,13 @@
         </div>
         
         <script>
-            const { createApp, ref } = Vue;
+            const { createApp, ref, reactive } = Vue;
 
             createApp({
                 setup(){
                     let luckyNumber = ref(9);  
                     const numbers = [3,4,5,6,7,8,9,0];
-                    const employee = ref({
+                    const employee = reactive({
                         name : "Agbowagli",
                         age : 40,
                         salary: 100000000,
@@ -33,7 +33,7 @@
                         setTimeout(() => {
                             
                             luckyNumber.value = 44;
-                            employee.value.salary = 50
+                            employee.salary = 50
                         }, 5000);
                     };
 
