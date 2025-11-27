@@ -8,13 +8,14 @@
     </head>
     <body>
         <div id="app">
-            <h1 v-html="GetMessage()"></h1>
+            <h1>{{message}}</h1>
             <p>Your lucky number is {{ luckyNumber }} and it is an {{luckyNumber % 2 == 0 ? "even" : "old"}} number</p>
-            <p v-once>Your lucky number is  rendered only once {{ luckyNumber }}</p>  
-            <a v-bind:href="fbUrl" target="_blank" >facebook</a>
             <p>Here are  few numbers {{numbers[6]}}</p>
             <h3>This is {{employee.name}}. He is {{employee.age}} and earns {{employee.salary}}</h3>
-            <h4>{{ GetUpdateLuckyNumber() }} </h4>
+            <p v-show="employee.hasCorperateCard" >Spending Limit for Card {{employee.spendingLimit}}</p>
+            <p v-if="employee.hasCorperateCard" >Spending Limit for Card {{employee.spendingLimit}}</p>
+            <p v-else-if="employee.salary > 20000 && employee.yearsWithCompany > 1">Employee is eligible for a corperate card</p>
+            <p v-else>Employee is not eligible for a corparate card.</p>
         </div>
         
         <script>
@@ -22,37 +23,21 @@
 
             createApp({
                 setup(){
-                    let luckyNumber = ref(9);  
+                    const message = "Hello vue 3! in directive";
                     const numbers = [3,4,5,6,7,8,9,0];
                     const employee = reactive({
                         name : "Agbowagli",
                         age : 40,
-                        salary: 100000000,
+                        salary: 100000,
+                        hasCorperateCard : false,
+                        spendingLimit: 10000,
+                        yearsWithCompany: 0,
                     })
                     
-                    function GetUpdateLuckyNumber(){
-
-                        setTimeout(() => {
-                            
-                            luckyNumber.value = 44;
-                            employee.salary = 50
-                        }, 5000);
-                    };
-
-                    function GetMessage() {
-                        const message = "Hello vue 3! in directive";
-                        return `<h1><u>${message}</u></h1>`;
-                    };
-
-                    const fbUrl = "https://facebook.com";
-                    
                     return{
-                        luckyNumber,
                         numbers,
                         employee,
-                        GetUpdateLuckyNumber,
-                        GetMessage,
-                        fbUrl
+                        message
                     }
                 }
             }).mount("#app");
