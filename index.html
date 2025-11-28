@@ -10,9 +10,26 @@
         <div id="app">
             <h1>{{message}}</h1>
             Numbers: </br>
-            <span v-for="(num, i) in numbers">{{ num }} <br> </span>
+            <span v-for="(num, i) in numbers"><span >{{ num }} <br></span></span>
+            <hr>
+            Numbers with v-once
+            <span v-for="(num, i) in numbers"><span v-once>{{ num }} <br></span></span>
+            <hr>
+            Looping through an array of object
+            <br>
+            <span v-for="project in employee.projects" :key="project.project" >{{project.project}} has taken {{project.timeline}} to  be completed. <input type="text">  <br></span>
+            <hr>
+
+            <hr>
+            Looping over an object to display the key and value <br>
+            <span v-for="(value, key) in employee"> 
+                {{key}}: {{value}} <br>
+            </span>
+            <hr>
+
+
             <h3>This is {{employee.name}}. He is {{employee.age}} and earns {{employee.salary}}</h3>
-         
+         {{ShuffleEmployeeProjectsOrder()}}
         </div>
         
         <script>
@@ -29,12 +46,24 @@
                         hasCorperateCard : false,
                         spendingLimit: 10000,
                         yearsWithCompany: 0,
-                    })
+                        projects : [
+                            {project: "Green A", timeline: "2 years"},
+                            {project: "Blue H", timeline: "9 months"},
+                            {project: "Pink G", timeline: "4 years"},
+                        ], //This is an array of objects
+                    });
+
+                    function ShuffleEmployeeProjectsOrder(){
+                        setTimeout(() =>{
+                            employee.projects.sort(()=> Math.random() - 0.5);
+                        }, 5000)
+                    }
                     
                     return{
                         numbers,
                         employee,
-                        message
+                        message,
+                        ShuffleEmployeeProjectsOrder,
                     }
                 }
             }).mount("#app");
