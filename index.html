@@ -9,13 +9,10 @@
     <body>
         <div id="app">
             <h1>{{message}}</h1>
-            <p>Your lucky number is {{ luckyNumber }} and it is an {{luckyNumber % 2 == 0 ? "even" : "old"}} number</p>
-            <p>Here are  few numbers {{numbers[6]}}</p>
+            Numbers: </br>
+            <span v-for="(num, i) in numbers">{{ num }} <br> </span>
             <h3>This is {{employee.name}}. He is {{employee.age}} and earns {{employee.salary}}</h3>
-            <p v-show="employee.hasCorperateCard" >Spending Limit for Card {{employee.spendingLimit}}</p>
-            <p v-if="employee.hasCorperateCard" >Spending Limit for Card {{employee.spendingLimit}}</p>
-            <p v-else-if="employee.salary > 20000 && employee.yearsWithCompany > 1">Employee is eligible for a corperate card</p>
-            <p v-else>Employee is not eligible for a corparate card.</p>
+         
         </div>
         
         <script>
