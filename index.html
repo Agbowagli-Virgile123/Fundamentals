@@ -5,31 +5,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <title>Vue Fundamentals</title>
+
+        <style>
+            .h1{
+                font-size: 50px;
+                color: green;
+            }
+
+            .h2{
+                font-size: 40px;
+                color: chocolate;
+            }
+
+            .bg-gray{
+                background-color: gray;
+            }
+
+            .bg-green{
+                background-color: lightgreen;
+            }
+
+            .padding-medium{
+                padding: 20px;
+            }
+
+            .border{
+                border:  7px solid blue;
+            }
+        </style>
+
     </head>
     <body>
         <div id="app">
-            <h1>{{message}}</h1>
-            Numbers: </br>
-            <span v-for="(num, i) in numbers"><span >{{ num }} <br></span></span>
-            <hr>
-            Numbers with v-once
-            <span v-for="(num, i) in numbers"><span v-once>{{ num }} <br></span></span>
-            <hr>
-            Looping through an array of object
-            <br>
-            <span v-for="project in employee.projects" :key="project.project" >{{project.project}} has taken {{project.timeline}} to  be completed. <input type="text">  <br></span>
-            <hr>
+            Style binding
+           <div style="background-color: aqua; font-size: 40px;">Hello Vue!</div>
+           <hr>
 
-            <hr>
-            Looping over an object to display the key and value <br>
-            <span v-for="(value, key) in employee"> 
-                {{key}}: {{value}} <br>
-            </span>
-            <hr>
+           <div v-bind:style="{backgroundColor: 'aqua', fontSize: fontSizeTem}">Hello Vue</div>
+           <hr>
 
+           <div v-bind:style="{'background-color': 'aqua', 'font-size': '41px'}">Hello Vue</div>
+           <hr>
 
-            <h3>This is {{employee.name}}. He is {{employee.age}} and earns {{employee.salary}}</h3>
-         {{ShuffleEmployeeProjectsOrder()}}
+           Class Binding <br> <br>
+           <span class="padding-medium" v-bind:class="{h1:IsMainTitle(), 'bg-green':HasBgGreen(), border:true}" >Hello Vue Classes</span>
+
+           <br><br><br><br><br><br><br>
+           <span class="padding-medium" :class="[IsMainTitle() ? MainTitle : ' ', someBorder]" >Hello Vue Classes</span>
+        
+           <br><br>
+           <div :style="someStyle.style">Hello! This is object of style</div>
         </div>
         
         <script>
@@ -37,33 +62,46 @@
 
             createApp({
                 setup(){
-                    const message = "Hello vue 3! in directive";
-                    const numbers = [3,4,5,6,7,8,9,0];
-                    const employee = reactive({
-                        name : "Agbowagli",
-                        age : 40,
-                        salary: 100000,
-                        hasCorperateCard : false,
-                        spendingLimit: 10000,
-                        yearsWithCompany: 0,
-                        projects : [
-                            {project: "Green A", timeline: "2 years"},
-                            {project: "Blue H", timeline: "9 months"},
-                            {project: "Pink G", timeline: "4 years"},
-                        ], //This is an array of objects
-                    });
+                   
+                    const fontSizeTem = '50px';
 
-                    function ShuffleEmployeeProjectsOrder(){
-                        setTimeout(() =>{
-                            employee.projects.sort(()=> Math.random() - 0.5);
-                        }, 5000)
+                    const MainTitle = {
+                        h2: true,
+                        'bg-green' : true
+                    }
+
+                    const someBorder={
+                        border : true,
+                    } 
+
+                    const someStyle = {
+
+                        style:{
+                            fontSize: '40px',
+                            backgroundColor : 'red',
+                            margin : '20px',
+                            border: '1px solid black',
+                            color: '#fff',
+                            fontWeight: 'bold',
+
+                        }
+                    }
+
+                    function IsMainTitle(){
+                        return  true;
+                    }
+
+                    function HasBgGreen(){
+                        return true;
                     }
                     
                     return{
-                        numbers,
-                        employee,
-                        message,
-                        ShuffleEmployeeProjectsOrder,
+                       fontSizeTem,
+                       MainTitle,
+                       someStyle,
+                       someBorder,
+                       IsMainTitle,
+                       HasBgGreen,
                     }
                 }
             }).mount("#app");
