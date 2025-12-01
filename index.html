@@ -8,14 +8,14 @@
     </head>
     <body>
         <div id="app">
-           
-            <div>
-                <input type="text" v-on:keyup.enter.ctrl="PressEnter">
-                <button v-on:click.stop="OnBtnClick('Message from the button in the parent div',$event)">Click Me</button>
-                 <br> <span>x = {{x}}</span> <br>
-                 <span>y = {{y}}</span>
-
-            </div>
+         <h3>Learn Vue</h3>
+         Name: 
+         <input type="text" v-model.trim="name">
+         <br><br>
+         Age: 
+         <input type="number" v-model.lazy="age">
+         <br>
+         <p>{{name}} is {{age}} years old.</p>
         </div>
 
         <script>
@@ -23,26 +23,13 @@
 
             createApp({
                 setup(){
-                    let x = ref(0);
-                    let y = ref(0);
 
-                    function PressEnter(){
-                        alert("Enter key pressed");
-                    }
-
-                    function OnBtnClick(message, event){
-
-                        x.value = event.x;
-                        y.value = event.y;
-                        alert(message);
-                    }
-                  
+                    let name = ref("Virgile");
+                    let age = ref(23);
                     
                     return{
-                        x,
-                        y,
-                      OnBtnClick,
-                      PressEnter
+                       name,
+                       age
                     }
                 }
             }).mount("#app");
