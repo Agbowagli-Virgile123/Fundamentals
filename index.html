@@ -5,103 +5,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <title>Vue Fundamentals</title>
-
-        <style>
-            .h1{
-                font-size: 50px;
-                color: green;
-            }
-
-            .h2{
-                font-size: 40px;
-                color: chocolate;
-            }
-
-            .bg-gray{
-                background-color: gray;
-            }
-
-            .bg-green{
-                background-color: lightgreen;
-            }
-
-            .padding-medium{
-                padding: 20px;
-            }
-
-            .border{
-                border:  7px solid blue;
-            }
-        </style>
-
     </head>
     <body>
         <div id="app">
-            Style binding
-           <div style="background-color: aqua; font-size: 40px;">Hello Vue!</div>
-           <hr>
+           
+            <div>
+                <input type="text" v-on:keyup.enter.ctrl="PressEnter">
+                <button v-on:click.stop="OnBtnClick('Message from the button in the parent div',$event)">Click Me</button>
+                 <br> <span>x = {{x}}</span> <br>
+                 <span>y = {{y}}</span>
 
-           <div v-bind:style="{backgroundColor: 'aqua', fontSize: fontSizeTem}">Hello Vue</div>
-           <hr>
-
-           <div v-bind:style="{'background-color': 'aqua', 'font-size': '41px'}">Hello Vue</div>
-           <hr>
-
-           Class Binding <br> <br>
-           <span class="padding-medium" v-bind:class="{h1:IsMainTitle(), 'bg-green':HasBgGreen(), border:true}" >Hello Vue Classes</span>
-
-           <br><br><br><br><br><br><br>
-           <span class="padding-medium" :class="[IsMainTitle() ? MainTitle : ' ', someBorder]" >Hello Vue Classes</span>
-        
-           <br><br>
-           <div :style="someStyle.style">Hello! This is object of style</div>
+            </div>
         </div>
-        
+
         <script>
             const { createApp, ref, reactive } = Vue;
 
             createApp({
                 setup(){
-                   
-                    const fontSizeTem = '50px';
+                    let x = ref(0);
+                    let y = ref(0);
 
-                    const MainTitle = {
-                        h2: true,
-                        'bg-green' : true
+                    function PressEnter(){
+                        alert("Enter key pressed");
                     }
 
-                    const someBorder={
-                        border : true,
-                    } 
+                    function OnBtnClick(message, event){
 
-                    const someStyle = {
-
-                        style:{
-                            fontSize: '40px',
-                            backgroundColor : 'red',
-                            margin : '20px',
-                            border: '1px solid black',
-                            color: '#fff',
-                            fontWeight: 'bold',
-
-                        }
+                        x.value = event.x;
+                        y.value = event.y;
+                        alert(message);
                     }
-
-                    function IsMainTitle(){
-                        return  true;
-                    }
-
-                    function HasBgGreen(){
-                        return true;
-                    }
+                  
                     
                     return{
-                       fontSizeTem,
-                       MainTitle,
-                       someStyle,
-                       someBorder,
-                       IsMainTitle,
-                       HasBgGreen,
+                        x,
+                        y,
+                      OnBtnClick,
+                      PressEnter
                     }
                 }
             }).mount("#app");
