@@ -25,7 +25,7 @@
         </div>
 
         <script>
-            const { createApp, ref, reactive, computed } = Vue;
+            const { createApp, ref, reactive, computed, watch } = Vue;
 
             createApp({
                 setup(){
@@ -44,6 +44,14 @@
 
                     return  `${firstName.value} ${lastName.value}`;
                   });
+
+                  watch(() => count.value, (newValue, oldValue) =>{
+                    console.log("Count value changed from", oldValue, "to", newValue);
+
+                    if(newValue == 5){
+                        alert("Count value is 5");
+                    }
+                  })
                     
                     
                     return{
